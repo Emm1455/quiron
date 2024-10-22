@@ -1,13 +1,21 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";;
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Password:', password);
-    // Add login logic here (e.g., API call)
+    if(password === "password"){
+      sessionStorage.setItem("name", "user");
+      sessionStorage.setItem("token", "token123");
+      navigate("/");
+    }
+    else{
+      alert("Invalid password");
+    }
   };
 
   return (
