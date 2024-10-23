@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import fullLogo from "../assets/logo_cutted.png";
+import { useAuth } from "../hooks/AuthContext";
 
 function NavBar() {
-  const userToken = sessionStorage.getItem("token");
-  const logOut = () => {
-    sessionStorage.clear();
-  };
+  const { userToken, logOut } = useAuth();
   return (
     <header className="navbar">
       <div className="container">
@@ -30,7 +28,11 @@ function NavBar() {
             </Link>
             <span className="navbar-item">
               {userToken ? (
-                <Link className="button is-danger is-inverted" onClick={() => logOut()} to="/">
+                <Link
+                  className="button is-danger is-inverted"
+                  onClick={logOut}
+                  to="/"
+                >
                   <span>Cerrar sesión</span>
                 </Link>
               ) : (

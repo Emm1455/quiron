@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";;
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/AuthContext";
 
 function LoginForm() {
+  const { logIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ function LoginForm() {
     e.preventDefault();
     if(password === "password"){
       sessionStorage.setItem("name", "user");
-      sessionStorage.setItem("token", "token123");
+      logIn("token123"); // Store token on successful login
       navigate("/");
     }
     else{
@@ -22,7 +24,7 @@ function LoginForm() {
     <div className="container">
       <div className="column is-half is-offset-one-quarter">
         <form onSubmit={handleSubmit} className="box">
-          <h1 className="title is-4">Login</h1>
+          <h1 className="title is-4">Inicia sesión</h1>
 
           <div className="field">
             <label className="label">Email</label>
@@ -39,7 +41,7 @@ function LoginForm() {
           </div>
 
           <div className="field">
-            <label className="label">Password</label>
+            <label className="label">Contraseña</label>
             <div className="control">
               <input
                 className="input"
