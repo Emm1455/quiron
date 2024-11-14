@@ -1,7 +1,10 @@
-export const URI = "https://quiron/api/";
+// Development URI
+// export const URI = "http://localhost:3000/api/";
+// MockedServer URI
+export const URI = "https://31a3b859-b120-49d8-9b68-7a6626a030e9.mock.pstmn.io/";
 
 export const endpoints = {
-  login: "login",
+  auth: "auth",
   user: "user",
   userCreate: "user/create"
 };

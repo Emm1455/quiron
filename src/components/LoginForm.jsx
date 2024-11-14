@@ -1,22 +1,35 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext";
+import { getURL } from "../api/connectionData";
+import { fetchWrapper } from "../api/fetchWrapper";
 
 function LoginForm() {
   const { logIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(password === "password"){
-      sessionStorage.setItem("name", "user");
-      logIn("token123"); // Store token on successful login
-      navigate("/");
+
+    try{
+      const response = await fetchWrapper(getURL("auth"), "POST", {
+        email: email,
+        password: password
+      });
+
+      if (response.success){
+        // Set browser variables
+        logIn(response.data.token);
+        navigate("/");
+      } else {
+        setError(response.message || "Login failed");
+      }
     }
-    else{
-      alert("Invalid password");
+    catch (err){
+      setError(err.message || "An error ocurred. Please try again.");
     }
   };
 
@@ -61,6 +74,7 @@ function LoginForm() {
               </button>
             </div>
           </div>
+          {error && <p className="has-text-danger">{error}</p>}
         </form>
       </div>
     </div>

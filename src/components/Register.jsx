@@ -1,8 +1,8 @@
 // src/components/Register.jsx
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { getURL } from "../api/connectionData";
+import { fetchWrapper } from "../api/fetchWrapper";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -11,7 +11,7 @@ function Register() {
     confirmPassword: "",
   });
   const [error, setError] = useState(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,20 +27,19 @@ function Register() {
     }
 
     try {
-      console.log(getURL("userCreate"));
-      // const response = await axios.post(getURL("userCreate"), {
-      //   email: formData.email,
-      //   password: formData.password,
-      // });
+      const response = await fetchWrapper(getURL("user"), "POST", {
+        email: formData.email,
+        password: formData.password,
+      });
 
-      // if (response.data.success) {
-      //   alert("Registration successful!");
-      //   navigate("/login"); // Redirect to login page
-      // } else {
-      //   setError(response.data.message || "Registration failed.");
-      // }
-    } catch (error) {
-      setError("An error occurred. Please try again." + { error });
+      if (response.success) {
+        alert("Registration successful!");
+        navigate("/login");
+      } else {
+        setError(response.message || "Registration failed.");
+      }
+    } catch (err) {
+      setError(err.message || "An error occurred. Please try again.");
     }
   };
 
