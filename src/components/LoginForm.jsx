@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext";
-import { getURL } from "../api/connectionData";
+import { endpoints, getURL } from "../api/connectionData";
 import { fetchWrapper } from "../api/fetchWrapper";
 
 function LoginForm() {
@@ -15,7 +15,7 @@ function LoginForm() {
     e.preventDefault();
 
     try{
-      const response = await fetchWrapper(getURL("auth"), "POST", {
+      const response = await fetchWrapper(getURL(endpoints.auth), "POST", {
         email: email,
         password: password
       });

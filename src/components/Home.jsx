@@ -12,7 +12,7 @@ function Home() {
           <p className="title is-italic is-4">Bienvenido de nuevo {userName}</p>
         </div>
       ) : (
-        <>
+        // <>
           <div className="container has-text-centered">
             <p className="title has-text-text is-italic is-4">
               Bienvenido,{" "}
@@ -25,7 +25,7 @@ function Home() {
               </Link>
             </p>
           </div>
-        </>
+        // </>
       )}
     </>
   );

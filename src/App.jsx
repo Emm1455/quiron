@@ -3,6 +3,7 @@ import LoginForm from "./components/LoginForm";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import QuestionCard from "./components/Questions/QuestionCard";
 
 function App() {
   return (
@@ -14,17 +15,9 @@ function App() {
         <div className="hero-body">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/tutorial"
-              element={
-                <div className="container has-text-centered">
-                  <p className="title">Tutorial</p>
-                  <p className="subtitle">page 2</p>
-                </div>
-              }
-            />
+            <Route path="/tutorial" element={<QuestionCard />} />
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<Register />}/>
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </section>

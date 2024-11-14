@@ -1,7 +1,7 @@
 // src/components/Register.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getURL } from "../api/connectionData";
+import { endpoints, getURL } from "../api/connectionData";
 import { fetchWrapper } from "../api/fetchWrapper";
 
 function Register() {
@@ -27,7 +27,7 @@ function Register() {
     }
 
     try {
-      const response = await fetchWrapper(getURL("user"), "POST", {
+      const response = await fetchWrapper(getURL(endpoints.userCreate), "POST", {
         email: formData.email,
         password: formData.password,
       });
