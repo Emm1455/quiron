@@ -1,29 +1,14 @@
-import { useState, useEffect } from "react";
-import { fetchWrapper } from "../../api/fetchWrapper"; // Assuming you have a fetch wrapper
-import { endpoints, getURL } from "../../api/connectionData";
+import { useState } from "react";
+import QuestionText from "./QuestionText";
+import PropTypes from "prop-types";
 
-// Main Component
-const QuestionCard = () => {
-  const [questionData, setQuestionData] = useState(null);
+const QuestionCard = ({questionData}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [result, setResult] = useState({
     show: false,
     message: "",
     isCorrect: false,
   });
-
-  // Fetch the question data from the API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchWrapper(getURL(endpoints.questionExample)); // Endpoint `/example`
-        setQuestionData(data);
-      } catch (error) {
-        console.error("Error fetching question data:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   // Handle the answer verification
   const handleVerify = () => {
@@ -51,8 +36,6 @@ const QuestionCard = () => {
     });
   };
 
-  if (!questionData) return <p>Loading...</p>;
-
   return (
     <div className="box column is-8 is-offset-2">
       <QuestionText text={questionData.question} />
@@ -75,10 +58,6 @@ const QuestionCard = () => {
     </div>
   );
 };
-
-// Question Text Component
-// eslint-disable-next-line react/prop-types
-const QuestionText = ({ text }) => <h2 className="title is-4 mb-4">{text}</h2>;
 
 // Answer Options Component
 // eslint-disable-next-line react/prop-types
@@ -105,5 +84,9 @@ const VerificationBanner = ({ message, isCorrect }) => (
     {message}
   </div>
 );
+
+QuestionCard.propTypes = {
+  questionData: PropTypes.func.required,
+};
 
 export default QuestionCard;

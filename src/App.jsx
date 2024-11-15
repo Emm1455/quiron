@@ -3,7 +3,7 @@ import LoginForm from "./components/LoginForm";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Register from "./components/Register";
-import QuestionCard from "./components/Questions/QuestionCard";
+import Tutorial from "./components/Tutorial";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <div className="hero-body">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/tutorial" element={<QuestionCard />} />
+            <Route path="/tutorial" element={<Tutorial />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
           </Routes>

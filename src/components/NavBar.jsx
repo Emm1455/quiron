@@ -24,7 +24,7 @@ function NavBar() {
               Inicio
             </Link>
             <Link className="navbar-item" to="/tutorial">
-              Instrucciones
+              Tutorial
             </Link>
             <span className="navbar-item">
               {userToken ? (
