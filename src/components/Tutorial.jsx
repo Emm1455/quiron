@@ -1,25 +1,9 @@
-import { useState, useEffect } from "react";
-import { fetchWrapper } from "../api/fetchWrapper"; // Assuming you have a fetch wrapper
-import { endpoints, getURL } from "../api/connectionData";
+import { endpoints } from "../api/connectionData";
 import QuestionCard from "./Questions/QuestionCard";
-// import { useCachedData } from "../api";
+import useCachedData from "../api/useCachedData";
 
 function Tutorial() {
-  const [questionData, setQuestionData] = useState(null);
-
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const data = await fetchWrapper(getURL(endpoints.questionExample));
-          setQuestionData(data);
-        } catch (error) {
-          console.error("Error fetching question data:", error);
-        }
-      };
-      fetchData();
-    }, []);
-
-  // const questionData = useCachedData(fetchWrapper(getURL(endpoints.questionExample)),"example_q");
+  const questionData = useCachedData(endpoints.questionExample, "exampleQuestion");
 
   return (
     <>

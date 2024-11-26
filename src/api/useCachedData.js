@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { fetchWrapper } from "./fetchWrapper";
+import { getURL } from "./connectionData";
 
-function useCachedData(fetchFunction, storageKey) {
+function useCachedData(endpoint, storageKey) {
   const [data, setData] = useState(() => {
     // Check if data exists in localStorage
     const cachedData = localStorage.getItem(storageKey);
@@ -8,18 +10,22 @@ function useCachedData(fetchFunction, storageKey) {
   });
 
   useEffect(() => {
-    if (!data) {
-      // Fetch and cache data only if not already cached
-      //-- TO-DO: Replace fetchFunction with fetchWrapper
-      fetchFunction().then((fetchedData) => {
-        setData(fetchedData);
-        localStorage.setItem(storageKey, JSON.stringify(fetchedData));
-      });
-    }
-  }, [data, fetchFunction, storageKey]);
+    const fetchAndCacheData = async () => {
+      if (!data) {
+        try {
+          const fetchedData = await fetchWrapper(getURL(endpoint));
+          setData(fetchedData);
+          localStorage.setItem(storageKey, JSON.stringify(fetchedData));
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    };
+
+    fetchAndCacheData();
+  }, [data, endpoint, storageKey]);
 
   return data;
 }
-
 
 export default useCachedData;
