@@ -45,9 +45,11 @@ const QuestionCard = ({questionData}) => {
         onSelectOption={setSelectedOption}
       />
 
-      <button className="button is-link" onClick={handleVerify}>
-        Verificar
-      </button>
+      <div className="has-text-right">
+        <button className="button is-link" onClick={handleVerify}>
+          Verificar
+        </button>
+      </div>
 
       {result.show && (
         <VerificationBanner
@@ -66,7 +68,7 @@ const AnswerOptions = ({ options = [""], selectedOption, onSelectOption }) => (
     {options.map((option) => (
       <button
         key={option._id}
-        className={`button ${selectedOption === option._id ? "is-info" : ""}`}
+        className={`button is-responsive is-fullwidth ${selectedOption === option._id ? "is-info" : ""}`}
         onClick={() => onSelectOption(option._id)}
       >
         {option.answer}
